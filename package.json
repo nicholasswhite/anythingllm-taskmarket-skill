@@ -1,0 +1,16 @@
+{
+  "name": "anythingllm-taskmarket-skill",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A read-only AnythingLLM agent skill for discovering Taskmarket tasks and reviewing public submission metadata.",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "check": "node --check taskmarket-browser/handler.js && node --check taskmarket-browser/lib/taskmarket-client.js && node --check demo/live-readonly-demo.mjs",
+    "demo": "node demo/live-readonly-demo.mjs",
+    "test": "node --test",
+    "validate": "npm run check && npm test"
+  }
+}

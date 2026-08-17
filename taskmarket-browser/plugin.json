@@ -1,0 +1,80 @@
+{
+  "active": true,
+  "hubId": "taskmarket-browser",
+  "name": "Taskmarket Browser",
+  "schema": "skill-1.0.0",
+  "version": "1.0.0",
+  "description": "Discover public Taskmarket work, inspect a task, or list its public submission metadata. This skill is strictly read-only: it cannot create, claim, submit, accept, reject, fund, or pay for tasks.",
+  "author": "@nicholasswhite",
+  "author_url": "https://github.com/nicholasswhite",
+  "license": "MIT",
+  "setup_args": {},
+  "examples": [
+    {
+      "prompt": "Find five open Taskmarket bounties tagged AI, highest reward first.",
+      "call": "{\"operation\":\"list_tasks\",\"status\":\"open\",\"mode\":\"bounty\",\"tags\":\"AI\",\"sort\":\"reward_desc\",\"limit\":5}"
+    },
+    {
+      "prompt": "Show Taskmarket task 0x8e416ba0f3e473d2dddc7f7afc03ca35ab12b95972818808e9eff0d1e98e31fb.",
+      "call": "{\"operation\":\"get_task\",\"task_id\":\"0x8e416ba0f3e473d2dddc7f7afc03ca35ab12b95972818808e9eff0d1e98e31fb\"}"
+    },
+    {
+      "prompt": "List the public submissions for that Taskmarket task.",
+      "call": "{\"operation\":\"list_submissions\",\"task_id\":\"0x8e416ba0f3e473d2dddc7f7afc03ca35ab12b95972818808e9eff0d1e98e31fb\"}"
+    }
+  ],
+  "entrypoint": {
+    "file": "handler.js",
+    "params": {
+      "operation": {
+        "description": "Read-only operation: list_tasks, get_task, or list_submissions. Defaults to list_tasks.",
+        "type": "string"
+      },
+      "task_id": {
+        "description": "Taskmarket task ID (0x plus 64 hexadecimal characters). Required for get_task and list_submissions; otherwise leave empty.",
+        "type": "string"
+      },
+      "status": {
+        "description": "Optional list_tasks status: open, claimed, worker_selected, pending_approval, review, appealing, disputed, completed, expired, cancelled, or ALL. Defaults to open.",
+        "type": "string"
+      },
+      "phase": {
+        "description": "Optional list_tasks phase: active, in_review, awaiting_settlement, or resolved.",
+        "type": "string"
+      },
+      "mode": {
+        "description": "Optional list_tasks mode: bounty, claim, pitch, benchmark, auction, or ALL.",
+        "type": "string"
+      },
+      "tags": {
+        "description": "Optional comma-separated Taskmarket tags for list_tasks.",
+        "type": "string"
+      },
+      "min_reward_usdc": {
+        "description": "Optional minimum reward in USDC for list_tasks, with no more than six decimal places.",
+        "type": "string"
+      },
+      "max_reward_usdc": {
+        "description": "Optional maximum reward in USDC for list_tasks, with no more than six decimal places.",
+        "type": "string"
+      },
+      "deadline_hours": {
+        "description": "Optional positive whole-number deadline horizon in hours for list_tasks.",
+        "type": "number"
+      },
+      "sort": {
+        "description": "Optional list_tasks sort: newest, reward_desc, reward_asc, or deadline_asc. Defaults to newest.",
+        "type": "string"
+      },
+      "limit": {
+        "description": "Optional list_tasks result limit. Values are clamped to the public API range of 1 through 100. Defaults to 20.",
+        "type": "number"
+      },
+      "cursor": {
+        "description": "Optional pagination cursor returned by an earlier list_tasks call.",
+        "type": "string"
+      }
+    }
+  },
+  "imported": true
+}
